@@ -129,7 +129,7 @@ $(function() {
     /* 好手氣 */ 
     $('#search2').on('click', function(){
         if ($(".search-text").attr("data-site") == "google") {
-            window.location = 'https://www.google.com.hk/search?q=' + encodeURIComponent($('#kw').val());
+            window.location = 'https://www.google.com.tw/search?q=' + encodeURIComponent($('#kw').val());
         } else {
             window.location = 'https://www.loli.cab/search?q=' + encodeURIComponent($('#kw').val());
         }
