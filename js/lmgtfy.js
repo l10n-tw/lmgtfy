@@ -1,6 +1,6 @@
 /**
- * 基于 mengkun(https://mkblog.cn) 的 https://github.com/mengkunsoft/lmbtfy 修改而成
- * 转载或使用时，还请保留以上信息，谢谢！
+ * 基於 mengkun(https://mkblog.cn) 的 https://github.com/mengkunsoft/lmbtfy 修改而成
+ * 轉載或使用時，還請保留以上資訊，謝謝。
  */ 
 
 /* 低版本 IE polyfill */ 
@@ -8,7 +8,7 @@ if(!window.location.origin) {
     window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
 }
 
-/* 扩展一个getUrlParam的方法 */
+/* 擴充一個getUrlParam的方法 */
 $.getUrlParam = function(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -25,7 +25,7 @@ $(function() {
     
     var stepTimeout, typeInterval;
 
-    /* 获取并解析查询参数。参数加 Base64 编码是防止别人直接从链接中猜出了结果，而拒绝点击 */ 
+    /* 取得並解析搜尋參數。參數加上 Base64 代碼是為了防止他人直接從連結中猜出結果，而拒絕點入 */ 
     var query = $.getUrlParam('q');
     if(!!query) {
         try {
@@ -35,19 +35,19 @@ $(function() {
         }
     }
 
-    /* 有参数，启动教程 */
+    /* 有參數，開始教學 */
     if(!!query) {
-        $tips.html('让我来教你正确的打开方式');
+        $tips.html('讓我來教您正確的開啟方式');
         $stop.fadeIn();
 
         stepTimeout = setTimeout(function() {
-            $tips.html('1、找到输入框并选中');
+            $tips.html('第一步，找到輸入欄並按下它');
 
             $arrow.removeClass('active').show().animate({
                 left: $kw.offset().left + 20 + 'px',
                 top: ($kw.offset().top + $kw.outerHeight() / 2) + 'px'
             }, 2000, function () {
-                $tips.html('2、输入你要找的内容');
+                $tips.html('第二步，輸入您想要找的內容');
                 $arrow.addClass('active');
 
                 stepTimeout = setTimeout(function() {
@@ -58,18 +58,18 @@ $(function() {
                         $kw.val(query.substr(0, i));
                         if (++i > query.length) {
                             clearInterval(typeInterval);
-                            $tips.html('3、点击下“Google 搜索”按钮');
+                            $tips.html('第三部，按下「Google 搜尋」按鈕');
 
                             $arrow.removeClass('active').fadeIn().animate({
                                 left: $searchSubmit.offset().left + $searchSubmit.width()  / 2 + 'px',
                                 top:  $searchSubmit.offset().top  + $searchSubmit.height() / 2 + 'px'
                             }, 1000, function () {
-                                $tips.html('<strong>怎么样，学会了吗？</strong>');
+                                $tips.html('<strong>如何？學會了嗎？</strong>');
                                 $arrow.addClass('active');
 
                                 stepTimeout = setTimeout(function () {
                                     if ($(".search-text").attr("data-site") == "google") {
-                                        window.location = 'https://www.google.com.hk/search?q=' + encodeURIComponent(query);
+                                        window.location = 'https://www.google.com.tw/search?q=' + encodeURIComponent(query);
                                     } else {
                                         window.location = 'https://www.loli.cab/search?q=' + encodeURIComponent(query);
                                     }
@@ -90,7 +90,7 @@ $(function() {
         $arrow.stop().hide();
         $kw.val(query);
         query = false;
-        $tips.html('输入一个问题，然后按 Google 搜索');
+        $tips.html('輸入一個問題，然後按下 Google 搜尋');
     });
 
     /* 提交 */
@@ -99,26 +99,26 @@ $(function() {
 
         var question = $.trim($kw.val());
         if(!question) {
-            $tips.html('<span style="color: red">搜了个寂寞？</span>');
+            $tips.html('<span style="color: red">你很寂寞嗎？</span>');
             $kw.val('');
         } else {
-            $tips.html('↓↓↓ 复制下面的链接，教伸手党使用谷歌');
+            $tips.html('↓↓↓ 複製下方的連結，教導懶人使用 Google');
             $('#output').fadeIn();
             $urlOutput.val(window.location.origin + window.location.pathname + '?q=' + Base64.encode(question)).focus().select();
         }
         return false;
     });
 
-    /* 复制结果 */ 
+    /* 複製結果 */ 
     var clipboard = new ClipboardJS('[data-clipboard-target]');
     clipboard.on('success', function(e) {
-        $tips.html('<span style="color: #4caf50">复制成功! 赶紧把链接甩给伸手党们!</span>');
+        $tips.html('<span style="color: #4caf50">複製成功！快點將連結送給懶人們吧！</span>');
     });
     clipboard.on('error', function(e) {
-        $tips.html('<span style="color: red">复制失败，请手动复制</span>');
+        $tips.html('<span style="color: red">複製失敗，請手動複製</span>');
     });
 
-    /* 预览 */ 
+    /* 預覽 */ 
     $('#preview').click(function() {
         var link = $urlOutput.val();
         if (!!link) {
@@ -126,7 +126,7 @@ $(function() {
         }
     });
 
-    /* 手气不错 */ 
+    /* 好手氣 */ 
     $('#search2').on('click', function(){
         if ($(".search-text").attr("data-site") == "google") {
             window.location = 'https://www.google.com.hk/search?q=' + encodeURIComponent($('#kw').val());
@@ -136,7 +136,7 @@ $(function() {
     });
 });
 
-/* 关于 */
+/* 關於 */
 function showAbout(){
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
@@ -150,7 +150,7 @@ function hideAbout(){
     $("#msgbox").fadeOut(200); 
 }
 
-/* Google 测试 */
+/* Google 測試 */
 function gtest(){
     var img = new Image();
     var timeout = setTimeout(function(){
@@ -165,6 +165,6 @@ function gtest(){
         clearTimeout(timeout);
         $(".search-text").attr("data-site","google");
     };
-    img.src = "https://www.google.com.hk/favicon.ico?"+ +new Date();
+    img.src = "https://www.google.com.tw/favicon.ico?"+ +new Date();
 }
 window.onload = function(){gtest();window.setInterval("gtest()",10000);}
